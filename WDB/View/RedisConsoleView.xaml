@@ -1,0 +1,152 @@
+<UserControl
+    x:Class="WDB.View.RedisConsoleView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:WDB.View"
+    d:DesignHeight="550"
+    d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" MinHeight="120" />
+            <RowDefinition Height="3" />
+            <RowDefinition Height="110" MinHeight="60" />
+        </Grid.RowDefinitions>
+        <!--  工具栏:执行/清空 + 逻辑库 + 连接信息  -->
+        <Border
+            Padding="0,1"
+            Background="White"
+            BorderBrush="LightGray"
+            BorderThickness="0,0,0,1">
+            <DockPanel LastChildFill="False">
+                <Menu
+                    Height="28"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    DockPanel.Dock="Left">
+                    <MenuItem Click="Zhixing_Click" Header="执行">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/sql_run.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Click="Qingkong_Click" Header="清空">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/row_cancel.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </Menu>
+                <StackPanel
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Foreground="Gray"
+                        Text="Enter 执行 · Shift+Enter 换行 · ↑↓ 历史" />
+                    <Separator
+                        Width="1"
+                        Height="18"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Background="LightGray" />
+                    <TextBlock VerticalAlignment="Center" Text="逻辑库:" />
+                    <ComboBox
+                        x:Name="CbDb"
+                        Width="90"
+                        Margin="4,3,0,3"
+                        ItemContainerStyle="{StaticResource DropdownItemStyle}"
+                        SelectionChanged="CbDb_SelectionChanged"
+                        ToolTip="执行命令使用的Redis逻辑库">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image
+                                        Width="16"
+                                        Height="16"
+                                        Margin="0,0,5,0"
+                                        Source="pack://application:,,,/WDB;component/Resources/database.png" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock
+                        x:Name="TxtConn"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="Gray" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <!--  输出  -->
+        <Border
+            Grid.Row="1"
+            Margin="0,0,1,0"
+            Background="White"
+            BorderBrush="#DDDDDD"
+            BorderThickness="1"
+            CornerRadius="4">
+            <TextBox
+                x:Name="TxtOut"
+                Padding="5"
+                VerticalContentAlignment="Top"
+                Background="Transparent"
+                BorderThickness="0"
+                FontFamily="Consolas"
+                FontSize="13"
+                HorizontalScrollBarVisibility="Auto"
+                IsReadOnly="True"
+                IsReadOnlyCaretVisible="True"
+                TextWrapping="NoWrap"
+                VerticalScrollBarVisibility="Auto" />
+        </Border>
+        <GridSplitter
+            Grid.Row="2"
+            Height="3"
+            Margin="8,0"
+            HorizontalAlignment="Stretch"
+            Background="Transparent"
+            ResizeBehavior="PreviousAndNext"
+            ResizeDirection="Rows" />
+        <!--  命令输入  -->
+        <Border
+            Grid.Row="3"
+            Margin="0,0,1,1"
+            Background="White"
+            BorderBrush="#DDDDDD"
+            BorderThickness="1"
+            CornerRadius="4">
+            <TextBox
+                x:Name="TxtCmd"
+                Padding="5"
+                VerticalContentAlignment="Top"
+                AcceptsReturn="True"
+                Background="Transparent"
+                BorderThickness="0"
+                FontFamily="Consolas"
+                FontSize="13"
+                HorizontalScrollBarVisibility="Auto"
+                PreviewKeyDown="TxtCmd_PreviewKeyDown"
+                TextWrapping="NoWrap"
+                VerticalScrollBarVisibility="Auto" />
+        </Border>
+        <view:Loading
+            x:Name="LoadingG"
+            Grid.Row="0"
+            Grid.RowSpan="4"
+            Visibility="Collapsed" />
+    </Grid>
+</UserControl>

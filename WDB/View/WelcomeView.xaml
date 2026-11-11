@@ -1,0 +1,204 @@
+<UserControl
+    x:Class="WDB.View.WelcomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <!--  连接行(点击在左侧树中定位)  -->
+        <!--  连接行右侧的[新建查询]:轻量文字按钮,悬停给浅蓝底  -->
+        <Style x:Key="WelcomeQueryButton" TargetType="Button">
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="#409EFF" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="Bd"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="4"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#E1ECFB" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="WelcomeConnRow" TargetType="Button">
+            <Setter Property="Height" Value="38" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Background" Value="#F7F8FA" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="Bd"
+                            Padding="12,0"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="6"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#EEF3FC" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border Background="White">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel
+                MaxWidth="1000"
+                Margin="32,26,32,26"
+                HorizontalAlignment="Left">
+                <!--  标题区:名称 + 授权状态(悬停看激活详情,点击打开关于)  -->
+                <DockPanel LastChildFill="True">
+                    <Border
+                        x:Name="BdLicense"
+                        Padding="10,4"
+                        VerticalAlignment="Center"
+                        CornerRadius="10"
+                        Cursor="Hand"
+                        DockPanel.Dock="Right"
+                        MouseLeftButtonUp="License_Click"
+                        ToolTipService.ShowDuration="60000">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="#F2F6FC" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#E1ECFB" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <TextBlock
+                            x:Name="TxtLicense"
+                            FontSize="12"
+                            Foreground="#606266" />
+                    </Border>
+                    <StackPanel Orientation="Horizontal">
+                        <Border
+                            Width="44"
+                            Height="44"
+                            Background="#EAF2FE"
+                            CornerRadius="10">
+                            <Image
+                                Width="24"
+                                Height="24"
+                                Source="pack://application:,,,/WDB;component/Resources/database.png" />
+                        </Border>
+                        <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="20"
+                                FontWeight="Bold"
+                                Foreground="#303133"
+                                Text="WDB" />
+                            <TextBlock
+                                Margin="0,2,0,0"
+                                FontSize="12"
+                                Foreground="#909399"
+                                Text="微型数据库连接软件，原生数据库驱动极限速度" />
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+
+                <!--  连接列表  -->
+                <TextBlock
+                    Margin="0,30,0,12"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Foreground="#303133"
+                    Text="我的连接" />
+                <TextBlock
+                    x:Name="TxtEmptyConn"
+                    FontSize="12"
+                    Foreground="#909399"
+                    Text="还没有连接，点顶部菜单的“新建连接”添加一个吧。"
+                    Visibility="Collapsed" />
+                <ItemsControl ItemsSource="{Binding Connections}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button
+                                Click="Connection_Click"
+                                Style="{StaticResource WelcomeConnRow}"
+                                Tag="{Binding}"
+                                ToolTip="{Binding Tip}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Grid.Column="0"
+                                        Width="18"
+                                        Height="18"
+                                        Margin="0,0,10,0"
+                                        VerticalAlignment="Center"
+                                        Source="{Binding Icon}" />
+                                    <!--  连接名:超过 240 截断,悬停看全名  -->
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        MaxWidth="240"
+                                        VerticalAlignment="Center"
+                                        FontSize="13"
+                                        Foreground="#303133"
+                                        Text="{Binding Name}"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTip="{Binding Name}" />
+                                    <!--  连接信息:与连接名固定间隔 10px,超过 340 截断,悬停看全部  -->
+                                    <TextBlock
+                                        Grid.Column="3"
+                                        MaxWidth="340"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="#C0C4CC"
+                                        Text="{Binding Detail}"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTip="{Binding Detail}" />
+                                    <TextBlock
+                                        Grid.Column="5"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="#909399"
+                                        Text="{Binding TypeName}" />
+                                    <Button
+                                        Grid.Column="6"
+                                        Click="NewQuery_Click"
+                                        Content="新建查询"
+                                        Style="{StaticResource WelcomeQueryButton}"
+                                        Tag="{Binding}"
+                                        ToolTip="用该连接新建查询" />
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

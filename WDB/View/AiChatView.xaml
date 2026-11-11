@@ -1,0 +1,227 @@
+<UserControl
+    x:Class="WDB.View.AiChatView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="480"
+    d:DesignWidth="380"
+    mc:Ignorable="d">
+    <Border
+        Background="White"
+        BorderBrush="LightGray"
+        BorderThickness="1,0,0,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!--  顶部:标题 + 清空 + 收起;第二行:相关表(集合)多选下拉  -->
+            <Border
+                Grid.Row="0"
+                Padding="8,6"
+                Background="#F5F6F8"
+                BorderBrush="LightGray"
+                BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" LastChildFill="False">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Source="pack://application:,,,/WDB;component/Resources/ai.png" />
+                        <TextBlock
+                            Margin="6,0,0,0"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            FontWeight="Bold"
+                            Text="AI助手" />
+                        <Button
+                            x:Name="BtnClose"
+                            Width="28"
+                            Height="28"
+                            Padding="0"
+                            Click="BtnClose_Click"
+                            Content="✕"
+                            Cursor="Hand"
+                            DockPanel.Dock="Right"
+                            ToolTip="收起AI助手" />
+                        <Button
+                            x:Name="BtnClear"
+                            Width="52"
+                            Height="28"
+                            Margin="0,0,6,0"
+                            Padding="0"
+                            Click="BtnClear_Click"
+                            Content="清空"
+                            Cursor="Hand"
+                            DockPanel.Dock="Right"
+                            ToolTip="清空当前对话" />
+                        <Button
+                            x:Name="BtnExtract"
+                            Width="84"
+                            Height="28"
+                            Margin="0,0,6,0"
+                            Padding="0"
+                            Click="BtnExtractPrompt_Click"
+                            Content="提取提示词"
+                            Cursor="Hand"
+                            DockPanel.Dock="Right"
+                            FontSize="12"
+                            ToolTip="把本次会发送给 AI 的完整内容(系统提示词 + 对话历史 + 表结构 + 问题)复制到剪贴板,方便贴到网页版大模型" />
+                    </DockPanel>
+                    <DockPanel
+                        Grid.Row="1"
+                        Margin="0,6,0,0"
+                        LastChildFill="True">
+                        <TextBlock
+                            x:Name="LbTable"
+                            Margin="0,0,6,0"
+                            VerticalAlignment="Center"
+                            DockPanel.Dock="Left"
+                            Text="相关表:" />
+                        <hc:CheckComboBox
+                            x:Name="CcbTable"
+                            MinHeight="28"
+                            hc:InfoElement.ShowClearButton="True"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="Name"
+                            ToolTip="可多选:勾选的表(集合)结构会随问题一起发给 AI" />
+                    </DockPanel>
+                </Grid>
+            </Border>
+            <!--  对话区:问在右、答在左,内容可选中复制  -->
+            <ScrollViewer
+                x:Name="Scroller"
+                Grid.Row="1"
+                Padding="8"
+                Background="#FAFBFC"
+                VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <ItemsControl x:Name="IcChat">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    x:Name="Bubble"
+                                    MaxWidth="420"
+                                    Margin="0,0,0,10"
+                                    Padding="8,6"
+                                    HorizontalAlignment="Left"
+                                    Background="White"
+                                    BorderBrush="#E4E7EB"
+                                    BorderThickness="1"
+                                    CornerRadius="6">
+                                    <StackPanel>
+                                        <TextBlock
+                                            x:Name="TxtWho"
+                                            Margin="0,0,0,2"
+                                            FontSize="11"
+                                            Foreground="#8A8F99"
+                                            Text="AI" />
+                                        <TextBox
+                                            x:Name="TxtContent"
+                                            MinHeight="0"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            FontSize="13"
+                                            IsReadOnly="True"
+                                            Text="{Binding Content, Mode=OneWay}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsUser}" Value="True">
+                                        <Setter TargetName="Bubble" Property="HorizontalAlignment" Value="Right" />
+                                        <Setter TargetName="Bubble" Property="Background" Value="#DCEBFF" />
+                                        <Setter TargetName="Bubble" Property="BorderBrush" Value="#BFD9F7" />
+                                        <Setter TargetName="TxtWho" Property="Text" Value="我" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsError}" Value="True">
+                                        <Setter TargetName="Bubble" Property="Background" Value="#FFF3F3" />
+                                        <Setter TargetName="Bubble" Property="BorderBrush" Value="#F0C9C9" />
+                                        <Setter TargetName="TxtContent" Property="Foreground" Value="#C62828" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock
+                        x:Name="TxtThinking"
+                        Margin="0,0,0,10"
+                        FontSize="12"
+                        FontStyle="Italic"
+                        Foreground="#8A8F99"
+                        Text="AI 正在思考..."
+                        Visibility="Collapsed" />
+                </StackPanel>
+            </ScrollViewer>
+            <!--  输入区:输入框 + 模型/技能下拉 + 发送,最下面是操作提示  -->
+            <Border
+                Grid.Row="2"
+                Padding="8"
+                Background="White"
+                BorderBrush="LightGray"
+                BorderThickness="0,1,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBox
+                        x:Name="TxtInput"
+                        MinHeight="100"
+                        VerticalContentAlignment="Top"
+                        hc:InfoElement.Placeholder="输入问题"
+                        AcceptsReturn="True"
+                        PreviewKeyDown="TxtInput_PreviewKeyDown"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
+                    <Grid Grid.Row="1" Margin="0,6,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox
+                            x:Name="CbModel"
+                            Grid.Column="0"
+                            Height="28"
+                            MinWidth="80"
+                            VerticalAlignment="Center"
+                            DisplayMemberPath="Name"
+                            ItemContainerStyle="{StaticResource DropdownItemStyle}"
+                            ToolTip="本次提问所用的大模型(在设置里维护多套)" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="5,10,0,0"
+                            FontSize="11"
+                            Foreground="Gray"
+                            Text="Enter 发送，Ctrl+Enter 换行" />
+                        <Button
+                            x:Name="BtnSend"
+                            Grid.Column="2"
+                            Width="70"
+                            Height="28"
+                            Margin="6,0,0,0"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            Click="BtnSend_Click"
+                            Content="发送"
+                            Cursor="Hand"
+                            Style="{StaticResource ButtonPrimary}" />
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

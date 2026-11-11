@@ -1,0 +1,211 @@
+﻿<hc:Window
+    x:Class="WDB.Window.XinJianNoDb"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:usercontrol="clr-namespace:WDB.View"
+    Width="600"
+    Height="660"
+    Background="{DynamicResource SecondaryRegionBrush}"
+    KeyDown="Window_KeyDown"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel>
+            <GroupBox
+                Name="GroupBoxMain"
+                Margin="10"
+                Header="新建连接">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            连接名称:
+                        </Label>
+                        <hc:TextBox
+                            Name="txtLianjiemingchen"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Placeholder="请输入连接名称"
+                            hc:InfoElement.ShowClearButton="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            主机:
+                        </Label>
+                        <hc:TextBox
+                            Name="txtZhuji"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Placeholder="请输入主机地址"
+                            hc:InfoElement.ShowClearButton="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            端口:
+                        </Label>
+                        <hc:TextBox
+                            Name="txtDuankou"
+                            Width="100"
+                            Margin="10"
+                            hc:InfoElement.Placeholder="请输入端口号"
+                            hc:InfoElement.ShowClearButton="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            账号:
+                        </Label>
+                        <hc:TextBox
+                            Name="txtZhanghao"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Placeholder="请输入账号"
+                            hc:InfoElement.ShowClearButton="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            hc:InfoElement.Placeholder="请输入密码"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            密码:
+                        </Label>
+                        <hc:PasswordBox
+                            Name="txtMima"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Necessary="True"
+                            hc:InfoElement.Placeholder="请输入密码"
+                            hc:InfoElement.ShowClearButton="True"
+                            ShowEyeButton="True" />
+                    </StackPanel>
+                    <!--  MongoDB 专属参数(认证库/认证机制/URL 参数),Redis 连接时隐藏  -->
+                    <StackPanel x:Name="PanelMongo" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <Label
+                                Width="80"
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Right"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Style="{StaticResource BaseStyle}">
+                                认证库:
+                            </Label>
+                            <hc:TextBox
+                                Name="txtAuthSource"
+                                Width="130"
+                                Margin="10"
+                                hc:InfoElement.Placeholder="默认 admin"
+                                hc:InfoElement.ShowClearButton="True" />
+                            <Label
+                                Width="80"
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Right"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Style="{StaticResource BaseStyle}">
+                                认证机制:
+                            </Label>
+                            <hc:ComboBox
+                                Name="cbAuthMechanism"
+                                Width="210"
+                                Margin="10"
+                                ItemContainerStyle="{StaticResource DropdownItemStyle}">
+                                <ComboBoxItem Content="默认(自动协商)" Tag="" />
+                                <ComboBoxItem Content="SCRAM-SHA-1" Tag="SCRAM-SHA-1" />
+                                <ComboBoxItem Content="SCRAM-SHA-256" Tag="SCRAM-SHA-256" />
+                                <ComboBoxItem Content="MONGODB-CR" Tag="MONGODB-CR" />
+                                <ComboBoxItem Content="PLAIN" Tag="PLAIN" />
+                                <ComboBoxItem Content="X509" Tag="X509" />
+                                <ComboBoxItem Content="GSSAPI" Tag="GSSAPI" />
+                            </hc:ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label
+                                Width="80"
+                                Margin="5,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Right"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Style="{StaticResource BaseStyle}">
+                                URL参数:
+                            </Label>
+                            <hc:TextBox
+                                Name="txtUrlParams"
+                                Width="450"
+                                Margin="10"
+                                hc:InfoElement.Placeholder="如 retryWrites=true&amp;readPreference=secondary"
+                                hc:InfoElement.ShowClearButton="True" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <Button
+            Width="100"
+            Margin="30"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Click="BtnCeshi"
+            Content="测试"
+            Style="{StaticResource ButtonPrimary}" />
+        <Button
+            Width="100"
+            Margin="0,0,150,30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:IconElement.Geometry="{StaticResource SaveGeometry}"
+            Click="BtnQueding"
+            Content="保存"
+            Style="{StaticResource ButtonPrimary}" />
+        <Button
+            Width="100"
+            Margin="30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:IconElement.Geometry="{StaticResource CloseGeometry}"
+            Background="DarkRed"
+            BorderThickness="0"
+            Click="BtnQuxiao"
+            Content="关闭"
+            Style="{StaticResource ButtonPrimary}" />
+        <usercontrol:Loading x:Name="LoadingG" Visibility="Collapsed" />
+    </Grid>
+</hc:Window>

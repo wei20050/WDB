@@ -1,0 +1,119 @@
+﻿<hc:Window
+    x:Class="WDB.Window.XinJianLocal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:usercontrol="clr-namespace:WDB.View"
+    Width="600"
+    Height="500"
+    Background="{DynamicResource SecondaryRegionBrush}"
+    KeyDown="Window_KeyDown"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel>
+            <GroupBox
+                Name="GroupBoxMain"
+                Margin="10"
+                Header="新建 Sqlite">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            连接名称:
+                        </Label>
+                        <hc:TextBox
+                            Name="txtLianjiemingchen"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Placeholder="请输入连接名称"
+                            hc:InfoElement.ShowClearButton="True" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            数据库位置:
+                        </Label>
+                        <StackPanel Margin="10" Orientation="Horizontal">
+                            <hc:TextBox
+                                Name="txtZhuji"
+                                Width="350"
+                                hc:InfoElement.Placeholder="请输入数据库位置 或浏览选择文件 或创建库"
+                                hc:InfoElement.ShowClearButton="True" />
+                            <Button Width="50" Click="BtnLiulan">
+                                浏览
+                            </Button>
+                            <Button Width="50" Click="BtnChuangjian">
+                                创建
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Style="{StaticResource BaseStyle}">
+                            密码:
+                        </Label>
+                        <hc:PasswordBox
+                            Name="txtMima"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Necessary="True"
+                            hc:InfoElement.Placeholder="请输入密码"
+                            hc:InfoElement.ShowClearButton="True"
+                            ShowEyeButton="True" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <Button
+            Width="100"
+            Margin="30"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Click="BtnCeshi"
+            Content="测试"
+            Style="{StaticResource ButtonPrimary}" />
+        <Button
+            Width="100"
+            Margin="0,0,150,30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:IconElement.Geometry="{StaticResource SaveGeometry}"
+            Click="BtnQueding"
+            Content="保存"
+            Style="{StaticResource ButtonPrimary}" />
+        <Button
+            Width="100"
+            Margin="30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:IconElement.Geometry="{StaticResource CloseGeometry}"
+            Background="DarkRed"
+            BorderThickness="0"
+            Click="BtnQuxiao"
+            Content="关闭"
+            Style="{StaticResource ButtonPrimary}" />
+        <usercontrol:Loading x:Name="LoadingG" Visibility="Collapsed" />
+    </Grid>
+</hc:Window>

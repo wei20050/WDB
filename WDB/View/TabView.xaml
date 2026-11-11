@@ -1,0 +1,451 @@
+﻿<UserControl
+    x:Class="WDB.View.TabView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:common="clr-namespace:WDB.Common"
+    xmlns:converters="clr-namespace:WDB.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:usercontrol="clr-namespace:WDB.View"
+    d:DesignHeight="550"
+    d:DesignWidth="1200"
+    DataContextChanged="UserControl_DataContextChanged"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <!--  连接图标:按数据库类型取 connect 目录下的图标  -->
+        <converters:IconConvert x:Key="IconConvert" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*" MinHeight="200" />
+            <RowDefinition x:Name="RowSplitter" Height="3" />
+            <RowDefinition
+                x:Name="RowData"
+                Height="*"
+                MinHeight="200" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!--  工具栏:菜单 + 执行上下文(连接/数据库/模式)  -->
+        <Border
+            x:Name="ToolBar"
+            Padding="0,1"
+            Background="White"
+            BorderBrush="LightGray"
+            BorderThickness="0,0,0,1"
+            SizeChanged="ToolBar_SizeChanged">
+            <DockPanel LastChildFill="False">
+                <Menu
+                    x:Name="MenuToolBar"
+                    Height="28"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    DockPanel.Dock="Left">
+                    <MenuItem Click="Zhixing_Click" Header="执行SQL">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/sql_run.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <!--  筛选列:点击弹出复选框列表勾选显示/隐藏结果表格的列  -->
+                    <MenuItem
+                        x:Name="MiLie"
+                        VerticalAlignment="Center"
+                        Click="MiLie_Click"
+                        Cursor="Hand"
+                        Header="筛选列">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/col.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Click="Meihua_Click" Header="美化SQL">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/sql_plan.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        VerticalAlignment="Center"
+                        Click="Ningcunwei_Click"
+                        Cursor="Hand"
+                        Header="另存为...">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/save_as.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        VerticalAlignment="Center"
+                        Click="AI_Click"
+                        Cursor="Hand"
+                        Header="AI助手"
+                        ToolTip="在SQL编辑框右侧展开对话面板">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/ai.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        VerticalAlignment="Center"
+                        Click="Daoru_Click"
+                        Cursor="Hand"
+                        Header="导入SQL">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/import.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </Menu>
+                <!--  执行上下文:连接/数据库/模式(按数据库类型决定显示哪几项,没有库层级的隐藏库,没有模式层级的隐藏模式)  -->
+                <StackPanel
+                    x:Name="PanelContext"
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    Orientation="Horizontal">
+                    <Separator
+                        Width="1"
+                        Height="18"
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Background="LightGray" />
+                    <!--  不带文字标签,靠图标区分:连接=数据库类型图标,数据库=库图标,模式=模式图标  -->
+                    <ComboBox
+                        x:Name="CbLj"
+                        Width="150"
+                        Margin="0,3,0,3"
+                        ItemContainerStyle="{StaticResource DropdownItemStyle}"
+                        SelectionChanged="CbLj_SelectionChanged"
+                        ToolTip="{Binding SelectedItem.Name, RelativeSource={RelativeSource Self}, StringFormat=执行SQL所用的连接: {0}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image
+                                        Width="16"
+                                        Height="16"
+                                        Margin="0,0,5,0"
+                                        Source="{Binding ., Converter={StaticResource IconConvert}}" />
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <StackPanel x:Name="PanelDb" Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="CbDb"
+                            Width="150"
+                            Margin="5,3,0,3"
+                            ItemContainerStyle="{StaticResource DropdownItemStyle}"
+                            SelectionChanged="CbDb_SelectionChanged"
+                            ToolTip="{Binding SelectedItem, RelativeSource={RelativeSource Self}, StringFormat=执行SQL所用的数据库: {0}}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            Width="16"
+                                            Height="16"
+                                            Margin="0,0,5,0"
+                                            Source="pack://application:,,,/WDB;component/Resources/database.png" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel x:Name="PanelSchema" Orientation="Horizontal">
+                        <ComboBox
+                            x:Name="CbSchema"
+                            Width="150"
+                            Margin="5,3,0,3"
+                            ItemContainerStyle="{StaticResource DropdownItemStyle}"
+                            SelectionChanged="CbSchema_SelectionChanged"
+                            ToolTip="{Binding SelectedItem, RelativeSource={RelativeSource Self}, StringFormat=执行SQL所用的模式: {0}}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            Width="16"
+                                            Height="16"
+                                            Margin="0,0,5,0"
+                                            Source="pack://application:,,,/WDB;component/Resources/schema.png" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <!--  筛选列弹层:全选/取消全选 + 复选框列表  -->
+        <Popup
+            x:Name="PopLie"
+            AllowsTransparency="True"
+            Placement="Bottom"
+            PlacementTarget="{Binding ElementName=MiLie}"
+            PopupAnimation="None"
+            StaysOpen="False">
+            <Border
+                MinWidth="200"
+                Padding="10"
+                Background="{DynamicResource RegionBrush}"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                CornerRadius="4">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        Opacity="0.25"
+                        ShadowDepth="2" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            Width="70"
+                            Padding="6,0"
+                            Click="BtnLieAll_Click"
+                            Content="全选"
+                            Style="{StaticResource ButtonPrimary}" />
+                        <Button
+                            Width="80"
+                            Margin="8,0,0,0"
+                            Padding="6,0"
+                            Click="BtnLieNone_Click"
+                            Content="取消全选" />
+                    </StackPanel>
+                    <ScrollViewer
+                        Grid.Row="1"
+                        MaxHeight="320"
+                        Margin="0,8,0,0"
+                        VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding LieList}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox
+                                        Margin="2,3"
+                                        Checked="Lie_Checked"
+                                        Content="{Binding Name}"
+                                        IsChecked="{Binding IsVisible, Mode=TwoWay}"
+                                        Unchecked="Lie_Checked" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Popup>
+        <!--  SQL编辑区:右侧可展开AI助手对话面板(面板宽度可拖)  -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="200" />
+                <ColumnDefinition x:Name="ColAiSplit" Width="0" />
+                <ColumnDefinition x:Name="ColAi" Width="0" />
+            </Grid.ColumnDefinitions>
+            <avalonedit:TextEditor
+                Name="TextEditor"
+                common:AvalonEditBindings.BoundText="{Binding SqlStr, UpdateSourceTrigger=PropertyChanged}"
+                AllowDrop="True"
+                DragEnter="TextEditor_DragEnter"
+                Drop="TextEditor_Drop"
+                FontSize="{Binding Path=(common:StaticVar.TextFontSize), Mode=OneWay}"
+                ShowLineNumbers="True"
+                WordWrap="True">
+                <avalonedit:TextEditor.ContextMenu>
+                    <ContextMenu Name="TreeContextMenu" Visibility="Visible">
+                        <MenuItem
+                            VerticalAlignment="Center"
+                            Click="Zhixing_Click"
+                            Cursor="Hand"
+                            Header="执行SQL">
+                            <MenuItem.Icon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="pack://application:,,,/WDB;component/Resources/sql_run.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            VerticalAlignment="Center"
+                            Click="Meihua_Click"
+                            Cursor="Hand"
+                            Header="美化SQL">
+                            <MenuItem.Icon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="pack://application:,,,/WDB;component/Resources/sql_plan.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator Margin="0,0,10,0" />
+                        <MenuItem
+                            VerticalAlignment="Center"
+                            Click="MenuCopy_Click"
+                            Cursor="Hand"
+                            Header="复制">
+                            <MenuItem.Icon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="pack://application:,,,/WDB;component/Resources/copy.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            VerticalAlignment="Center"
+                            Click="MenuPaste_Click"
+                            Cursor="Hand"
+                            Header="粘贴">
+                            <MenuItem.Icon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="pack://application:,,,/WDB;component/Resources/paste.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem
+                            VerticalAlignment="Center"
+                            Click="MenuDelete_Click"
+                            Cursor="Hand"
+                            Header="删除">
+                            <MenuItem.Icon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="pack://application:,,,/WDB;component/Resources/delete.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator Margin="0,0,10,0" />
+                        <MenuItem
+                            VerticalAlignment="Center"
+                            Click="Ningcunwei_Click"
+                            Cursor="Hand"
+                            Header="另存为...">
+                            <MenuItem.Icon>
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="pack://application:,,,/WDB;component/Resources/save_as.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </avalonedit:TextEditor.ContextMenu>
+                <avalonedit:TextEditor.Options>
+                    <avalonedit:TextEditorOptions EnableTextDragDrop="True" />
+                </avalonedit:TextEditor.Options>
+            </avalonedit:TextEditor>
+            <GridSplitter
+                x:Name="SplitterAi"
+                Grid.Column="1"
+                Width="4"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#EEEEEE"
+                ResizeBehavior="PreviousAndNext"
+                ResizeDirection="Columns"
+                Visibility="Collapsed" />
+            <usercontrol:AiChatView
+                x:Name="AiChat"
+                Grid.Column="2"
+                Visibility="Collapsed" />
+        </Grid>
+        <GridSplitter
+            x:Name="Splitter"
+            Grid.Row="2"
+            Width="Auto"
+            Height="3"
+            HorizontalAlignment="Stretch"
+            Background="#EEEEEE"
+            ResizeBehavior="PreviousAndNext"
+            ResizeDirection="Rows" />
+        <hc:TabControl
+            Name="tc"
+            Grid.Row="3"
+            hc:ShowCloseButton="True"
+            DisplayMemberPath="Header"
+            ItemsSource="{Binding}">
+            <hc:TabControl.ContentTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding Content}" />
+                </DataTemplate>
+            </hc:TabControl.ContentTemplate>
+        </hc:TabControl>
+        <!--  分页条:只有本次执行是可分页的单条 SELECT 时才出现  -->
+        <Border
+            x:Name="PanelPage"
+            Grid.Row="4"
+            Padding="8,4"
+            BorderBrush="LightGray"
+            BorderThickness="0,1,0,0"
+            Visibility="Collapsed">
+            <DockPanel LastChildFill="False">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Left"
+                    Foreground="Gray"
+                    Text="{Binding PageInfo}" />
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button
+                        Width="60"
+                        Margin="4,0,0,0"
+                        Click="BtnFirstPage_Click"
+                        Content="首页"
+                        IsEnabled="{Binding CanPrev}"
+                        ToolTip="第一页" />
+                    <Button
+                        Width="70"
+                        Margin="4,0,0,0"
+                        Click="BtnPrevPage_Click"
+                        Content="上一页"
+                        IsEnabled="{Binding CanPrev}" />
+                    <Button
+                        Width="70"
+                        Margin="4,0,0,0"
+                        Click="BtnNextPage_Click"
+                        Content="下一页"
+                        IsEnabled="{Binding HasNext}"
+                        ToolTip="每页多取一条用于判断是否还有下一页" />
+                    <TextBlock
+                        Margin="12,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="每页" />
+                    <ComboBox
+                        Width="80"
+                        Margin="4,0,0,0"
+                        ItemContainerStyle="{StaticResource DropdownItemStyle}"
+                        ItemsSource="{Binding PageSizeList}"
+                        SelectedItem="{Binding PageSize}"
+                        ToolTip="每页条数,改完自动回到第一页重查" />
+                    <TextBlock
+                        Margin="4,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="条" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <usercontrol:Loading
+            x:Name="LoadingG"
+            Grid.Row="0"
+            Grid.RowSpan="5"
+            Grid.ColumnSpan="3"
+            Visibility="Collapsed" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,144 @@
+﻿<hc:Window
+    x:Class="WDB.Window.SqlLogWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:WDB="clr-namespace:WDB"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="执行历史"
+    Width="900"
+    Height="600"
+    Background="{DynamicResource SecondaryRegionBrush}"
+    KeyDown="Window_KeyDown"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <WDB:SqlLogWindowModel />
+    </Window.DataContext>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label
+                Margin="3,3,0,3"
+                HorizontalAlignment="Right"
+                Content="查询:"
+                Style="{StaticResource BaseStyle}" />
+            <hc:TextBox
+                Grid.Column="1"
+                Margin="0,3,5,3"
+                hc:InfoElement.Placeholder="请输入任意条件模糊查询"
+                hc:InfoElement.ShowClearButton="True"
+                Text="{Binding Str, UpdateSourceTrigger=PropertyChanged}"
+                TextChanged="txtKey_TextChanged" />
+            <Button
+                Grid.Column="2"
+                Margin="0,3,0,3"
+                HorizontalAlignment="Left"
+                Click="BtnChaxun_Click"
+                Style="{StaticResource ButtonPrimary}">
+                重新加载数据
+            </Button>
+        </Grid>
+        <DataGrid
+            Name="dg"
+            Grid.Row="1"
+            hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
+            hc:DataGridAttach.ShowRowNumber="True"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding SqlLogBindList}"
+            RowHeaderWidth="60"
+            SelectionUnit="CellOrRowHeader">
+            <DataGrid.CellStyle>
+                <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="DataGridCell">
+                    <Setter Property="ToolTip" Value="{Binding ToolTipText}" />
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Click="Fz_Click" Header="复制">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/copy.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Click="Chakan_Click" Header="查看">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="pack://application:,,,/WDB;component/Resources/row_edit.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="150"
+                    Binding="{Binding Info}"
+                    Header="连接信息"
+                    IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="ToolTip" Value="{Binding Info}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Width="148"
+                    Binding="{Binding Time, StringFormat='yyyy-MM-dd HH:mm:ss'}"
+                    Header="记录时间"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Sql}"
+                    Header="执行语句"
+                    IsReadOnly="True">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="ToolTip" Value="{Binding Sql}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Width="80"
+                    Binding="{Binding Status}"
+                    Header="执行状态"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding Count}"
+                    Header="影响行数"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="150"
+                    Binding="{Binding Ms}"
+                    Header="执行耗时"
+                    IsReadOnly="True" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button
+            Grid.Row="3"
+            Width="100"
+            Margin="10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:IconElement.Geometry="{StaticResource CloseGeometry}"
+            Background="DarkRed"
+            BorderThickness="0"
+            Click="BtnGuanbi"
+            Content="关闭"
+            Style="{StaticResource ButtonPrimary}" />
+    </Grid>
+</hc:Window>

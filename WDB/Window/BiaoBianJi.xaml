@@ -1,0 +1,195 @@
+<UserControl
+    x:Class="WDB.Window.BiaoBianJi"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:WDB="clr-namespace:WDB"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:usercontrol="clr-namespace:WDB.View"
+    KeyDown="UserControl_KeyDown"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <WDB:BiaoBianJiModel />
+    </UserControl.DataContext>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="5,8,0,0" Orientation="Horizontal">
+            <Label
+                Width="80"
+                HorizontalContentAlignment="Right"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                BorderThickness="0"
+                Style="{StaticResource BaseStyle}">
+                所属连接:
+            </Label>
+            <Label
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Left"
+                Background="Transparent"
+                BorderThickness="0"
+                Content="{Binding LianjieMing}"
+                Style="{StaticResource BaseStyle}"
+                ToolTip="{Binding LianjieMing}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,6" Orientation="Horizontal">
+            <Label
+                Width="80"
+                HorizontalContentAlignment="Right"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                BorderThickness="0"
+                Style="{StaticResource BaseStyle}">
+                表名称:
+            </Label>
+            <hc:TextBox
+                Name="txtBiaoMing"
+                Width="200"
+                Margin="10,0"
+                hc:InfoElement.Placeholder="请输入表名"
+                Text="{Binding BiaoMing, UpdateSourceTrigger=PropertyChanged}" />
+            <Label
+                Width="80"
+                HorizontalContentAlignment="Right"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                BorderThickness="0"
+                Style="{StaticResource BaseStyle}">
+                表注释:
+            </Label>
+            <hc:TextBox
+                Width="260"
+                Margin="10,0"
+                hc:InfoElement.Placeholder="请输入表注释"
+                Text="{Binding BiaoZhuShi, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <DataGrid
+            Name="dg"
+            Grid.Row="2"
+            Margin="10"
+            hc:DataGridAttach.ShowRowNumber="True"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            ItemsSource="{Binding ZiDuanList}"
+            RowHeaderWidth="50">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="16*"
+                    Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                    Header="字段名" />
+                <DataGridTemplateColumn Width="16*" Header="类型">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <hc:ComboBox
+                                BorderThickness="0"
+                                IsEditable="True"
+                                ItemsSource="{Binding DataContext.TypeList, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                Padding="3,0"
+                                Text="{Binding Type, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="7*" Header="非空">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding Notnull, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="7*" Header="主键">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsPK, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    Width="12*"
+                    Binding="{Binding DefaultValue, UpdateSourceTrigger=PropertyChanged}"
+                    Header="默认值" />
+                <DataGridTextColumn
+                    Width="20*"
+                    Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"
+                    Header="注释" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Menu
+            Grid.Row="3"
+            Height="30"
+            BorderBrush="LightGray"
+            BorderThickness="0,1,0,0">
+            <MenuItem Click="BtnTianJia" Header="新增">
+                <MenuItem.Icon>
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="pack://application:,,,/WDB;component/Resources/row_add.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="BtnFuzhi" Header="复制">
+                <MenuItem.Icon>
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="pack://application:,,,/WDB;component/Resources/row_copy.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="BtnShanchu" Header="删除">
+                <MenuItem.Icon>
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="pack://application:,,,/WDB;component/Resources/row_delete.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator Margin="0,0,10,0" />
+            <MenuItem Click="BtnYulan" Header="预览">
+                <MenuItem.Icon>
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="pack://application:,,,/WDB;component/Resources/sql_script_create.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="BtnBaocun" Header="保存">
+                <MenuItem.Icon>
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="pack://application:,,,/WDB;component/Resources/row_save.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Click="BtnGuanbi" Header="取消">
+                <MenuItem.Icon>
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="pack://application:,,,/WDB;component/Resources/row_cancel.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </Menu>
+
+        <usercontrol:Loading
+            x:Name="LoadingG"
+            Grid.Row="0"
+            Grid.RowSpan="4"
+            Visibility="Collapsed" />
+    </Grid>
+</UserControl>

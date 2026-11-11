@@ -1,0 +1,73 @@
+﻿<UserControl
+    x:Class="WDB.Window.BiaoJieGouNoDb"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:WDB="clr-namespace:WDB"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <WDB:BiaoJieGouNoDbModel />
+    </UserControl.DataContext>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label
+                    Width="80"
+                    Margin="5,5,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Right"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Style="{StaticResource BaseStyle}">
+                    所属连接:
+                </Label>
+                <Label
+                    Name="labLj"
+                    Margin="5,5,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Right"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="{Binding LianjieMing}"
+                    Style="{StaticResource BaseStyle}" />
+            </StackPanel>
+            <hc:TextBox
+                Name="TxtChaxun"
+                Margin="3"
+                hc:InfoElement.Placeholder="请输入属性值查询"
+                hc:InfoElement.ShowClearButton="True"
+                TextChanged="TxtChaxun_TextChanged" />
+        </StackPanel>
+
+        <DataGrid
+            Name="dg"
+            Grid.Row="1"
+            hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
+            hc:DataGridAttach.ShowRowNumber="True"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding InfoBindList, UpdateSourceTrigger=PropertyChanged}"
+            RowHeaderWidth="60"
+            SelectionMode="Extended"
+            SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Key}"
+                    Header="属性" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Value}"
+                    Header="值" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

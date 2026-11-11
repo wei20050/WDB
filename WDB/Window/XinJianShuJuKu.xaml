@@ -1,0 +1,119 @@
+<hc:Window
+    x:Class="WDB.Window.XinJianShuJuKu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="600"
+    Height="340"
+    Background="{DynamicResource SecondaryRegionBrush}"
+    KeyDown="Window_KeyDown"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel>
+            <GroupBox
+                Name="GroupBoxMain"
+                Margin="10"
+                Header="创建数据库">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label
+                            Name="labName"
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="数据库名:"
+                            Style="{StaticResource BaseStyle}" />
+                        <hc:TextBox
+                            Name="txtName"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Placeholder="请输入名称"
+                            hc:InfoElement.ShowClearButton="True" />
+                    </StackPanel>
+                    <StackPanel
+                        Name="rowCharSet"
+                        Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="字符集:"
+                            Style="{StaticResource BaseStyle}" />
+                        <hc:ComboBox
+                            Name="cbCharSet"
+                            Width="450"
+                            Margin="10"
+                            IsEditable="True" />
+                    </StackPanel>
+                    <StackPanel
+                        Name="rowCollate"
+                        Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="排序规则:"
+                            Style="{StaticResource BaseStyle}" />
+                        <hc:ComboBox
+                            Name="cbCollate"
+                            Width="450"
+                            Margin="10"
+                            IsEditable="True" />
+                    </StackPanel>
+                    <StackPanel
+                        Name="rowOwner"
+                        Orientation="Horizontal">
+                        <Label
+                            Width="80"
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="所有者:"
+                            Style="{StaticResource BaseStyle}" />
+                        <hc:TextBox
+                            Name="txtOwner"
+                            Width="450"
+                            Margin="10"
+                            hc:InfoElement.Placeholder="默认当前连接用户"
+                            hc:InfoElement.ShowClearButton="True" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <Button
+            Width="100"
+            Margin="0,0,140,20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:IconElement.Geometry="{StaticResource SaveGeometry}"
+            Click="BtnQueding"
+            Content="保存"
+            Style="{StaticResource ButtonPrimary}" />
+        <Button
+            Width="100"
+            Margin="20"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            hc:IconElement.Geometry="{StaticResource CloseGeometry}"
+            Background="DarkRed"
+            BorderThickness="0"
+            Click="BtnQuxiao"
+            Content="关闭"
+            Style="{StaticResource ButtonPrimary}" />
+    </Grid>
+</hc:Window>

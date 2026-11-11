@@ -1,0 +1,264 @@
+﻿<UserControl
+    x:Class="WDB.Window.Tools.UcUnixToConvert"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="550"
+    d:DesignWidth="800"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
+    <Border
+        Margin="5"
+        Background="White"
+        CornerRadius="8">
+        <Grid Margin="18">
+            <Grid
+                Height="40"
+                Margin="0,-5,0,0"
+                VerticalAlignment="Top"
+                Background="#f9f9f9">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="15,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="#5c6b77">
+                        工具箱
+                    </TextBlock>
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="#5c6b77">
+                        /
+                    </TextBlock>
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="#5c6b77">
+                        UNIX时间戳转换
+                    </TextBlock>
+                </StackPanel>
+
+                <TextBlock
+                    Margin="10,10,10,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource TextBlockSubTitleBold}"
+                    Text="UNIX时间戳转换" />
+                <Button
+                    x:Name="BtnReturn"
+                    Width="60"
+                    Height="28"
+                    Margin="0,0,8,0"
+                    HorizontalAlignment="Right"
+                    BorderThickness="0.4"
+                    Click="BtnReturn_Click"
+                    Content="返回"
+                    Cursor="Hand" />
+            </Grid>
+            <ScrollViewer Margin="0,45,0,0" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Border
+                        Height="72"
+                        Margin="0,0,0,0"
+                        VerticalAlignment="Top"
+                        Background="#f9f9f9"
+                        CornerRadius="8">
+                        <StackPanel
+                            Margin="20"
+                            HorizontalAlignment="Stretch"
+                            Orientation="Horizontal">
+                            <hc:TextBox
+                                Name="TextNowUnixTime"
+                                Width="280"
+                                VerticalAlignment="Center"
+                                hc:InfoElement.Placeholder="当前Unix时间戳"
+                                hc:InfoElement.Title="当前Unix时间戳"
+                                hc:InfoElement.TitlePlacement="Left"
+                                hc:InfoElement.TitleWidth="100"
+                                IsReadOnly="True"
+                                Style="{StaticResource TextBoxExtend}" />
+                            <Button
+                                x:Name="BtnNowStop"
+                                Margin="10,0,0,0"
+                                Click="BtnNowStop_Click"
+                                Content="停止"
+                                Cursor="Hand"
+                                Style="{StaticResource ButtonDanger}" />
+                            <Button
+                                x:Name="BtnNowStart"
+                                Margin="10,0,0,0"
+                                Click="BtnNowStart_Click"
+                                Content="开始"
+                                Cursor="Hand"
+                                IsEnabled="False"
+                                Style="{StaticResource ButtonPrimary}" />
+                            <Button
+                                x:Name="BtnNowRefresh"
+                                Margin="10,0,0,0"
+                                Click="BtnNowRefresh_Click"
+                                Content="刷新"
+                                Cursor="Hand"
+                                IsEnabled="False"
+                                Style="{StaticResource ButtonSuccess}" />
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Height="72"
+                        Margin="0,90,0,0"
+                        VerticalAlignment="Top"
+                        Background="#f9f9f9"
+                        CornerRadius="8">
+                        <StackPanel
+                            Margin="20"
+                            HorizontalAlignment="Stretch"
+                            Orientation="Horizontal">
+                            <hc:TextBox
+                                Name="TextUnixTime"
+                                Width="280"
+                                VerticalAlignment="Top"
+                                hc:InfoElement.Placeholder="请输入Unix时间戳"
+                                hc:InfoElement.Title="Unix时间戳"
+                                hc:InfoElement.TitlePlacement="Left"
+                                hc:InfoElement.TitleWidth="100"
+                                Style="{StaticResource TextBoxExtend}" />
+                            <Button
+                                x:Name="BtnUnixConvert"
+                                Width="100"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Top"
+                                Click="BtnUnixConvert_OnClick"
+                                Content="开始转换"
+                                Cursor="Hand"
+                                Style="{StaticResource ButtonSuccess}" />
+                            <TextBox
+                                Name="TextUnixResult"
+                                Width="280"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Top"
+                                hc:InfoElement.Title="北京时间："
+                                hc:InfoElement.TitlePlacement="Left"
+                                hc:InfoElement.TitleWidth="80"
+                                BorderThickness="0"
+                                IsReadOnly="True"
+                                Style="{StaticResource TextBoxExtend}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Height="72"
+                        Margin="0,180,0,0"
+                        VerticalAlignment="Top"
+                        Background="#f9f9f9"
+                        CornerRadius="8">
+                        <StackPanel
+                            Margin="20"
+                            HorizontalAlignment="Stretch"
+                            Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <Label
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Style="{StaticResource BaseStyle}">
+                                    北京时间
+                                </Label>
+                                <hc:DateTimePicker
+                                    Name="TextBjTime"
+                                    Width="180"
+                                    VerticalAlignment="Top" />
+                            </StackPanel>
+                            <Button
+                                x:Name="BtnBjConvert"
+                                Width="100"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Top"
+                                Click="BtnBjConvert_OnClick"
+                                Content="开始转换"
+                                Cursor="Hand"
+                                Style="{StaticResource ButtonSuccess}" />
+                            <TextBox
+                                Name="TextBjResult"
+                                Width="280"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Top"
+                                hc:InfoElement.Title="Unix时间戳："
+                                hc:InfoElement.TitlePlacement="Left"
+                                hc:InfoElement.TitleWidth="80"
+                                BorderThickness="0"
+                                IsReadOnly="True"
+                                Style="{StaticResource TextBoxExtend}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        Margin="0,270,0,0"
+                        Background="#f9f9f9"
+                        CornerRadius="8"
+                        Visibility="Collapsed">
+                        <WrapPanel Margin="18,0,18,0">
+                            <TextBlock Margin="0,22,0,0">北京时间</TextBlock>
+                            <hc:NumericUpDown
+                                Name="TextYear"
+                                Width="80"
+                                Margin="32,15,0,0"
+                                VerticalAlignment="Top"
+                                Minimum="6"
+                                Style="{StaticResource NumericUpDownExtend}"
+                                Value="15" />
+                            <TextBlock Margin="5,25,0,0">年</TextBlock>
+                            <hc:NumericUpDown
+                                Name="TextMonth"
+                                Width="70"
+                                Margin="5,15,0,0"
+                                VerticalAlignment="Top"
+                                Minimum="6"
+                                Style="{StaticResource NumericUpDownExtend}"
+                                Value="15" />
+                            <TextBlock Margin="5,25,0,0">月</TextBlock>
+                            <hc:NumericUpDown
+                                Name="TextDay"
+                                Width="70"
+                                Margin="5,15,0,0"
+                                VerticalAlignment="Top"
+                                Minimum="6"
+                                Style="{StaticResource NumericUpDownExtend}"
+                                Value="15" />
+                            <TextBlock Margin="5,25,0,0">日</TextBlock>
+                            <hc:NumericUpDown
+                                Name="TextHour"
+                                Width="70"
+                                Margin="5,15,0,0"
+                                VerticalAlignment="Top"
+                                Minimum="6"
+                                Style="{StaticResource NumericUpDownExtend}"
+                                Value="15" />
+                            <TextBlock Margin="5,25,0,0">时</TextBlock>
+                            <hc:NumericUpDown
+                                Name="TextMin"
+                                Width="70"
+                                Margin="5,15,0,0"
+                                VerticalAlignment="Top"
+                                Minimum="6"
+                                Style="{StaticResource NumericUpDownExtend}"
+                                Value="15" />
+                            <TextBlock Margin="5,25,0,0">分</TextBlock>
+                            <hc:NumericUpDown
+                                Name="TextSecond"
+                                Width="70"
+                                Margin="5,15,0,0"
+                                VerticalAlignment="Top"
+                                Minimum="6"
+                                Style="{StaticResource NumericUpDownExtend}"
+                                Value="15" />
+                            <TextBlock Margin="15,25,0,0">秒</TextBlock>
+                        </WrapPanel>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,856 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1755697-69B0-40EE-984D-921A7514E1C3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WDB</RootNamespace>
+    <AssemblyName>WDB</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <!-- MSB3277：NuGet 解析出的 System.Runtime.CompilerServices.Unsafe 5.0.0 与 DbDll\gauss 那一套
+         （6.0.0）以及 MongoDB.Bson 2.12.0 元数据引用的 6.0.0 之间存在版本冲突，降级为消息不再报警告。
+         注意：警告消失不代表版本一致，部署目录里的实际版本需与 App.config 的绑定重定向保持一致。 -->
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://localhost/</InstallUrl>
+    <ProductName>图文数字化</ProductName>
+    <PublisherName>图文数字化</PublisherName>
+    <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
+    <WebPage>index.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>false</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>none</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>main.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>0FBF2F7BAD1505D42F17F95EB38D8BA458186493</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>图文数字化处理系统_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Common\AIHelp.cs" />
+    <Compile Include="Common\Config.cs" />
+    <Compile Include="Common\Core.cs" />
+    <Compile Include="Common\CoreConfig.cs" />
+    <Compile Include="Common\CoreConvert.cs" />
+    <Compile Include="Common\CoreEncrypt.cs" />
+    <Compile Include="Common\CoreHttp.cs" />
+    <Compile Include="Common\DateTimeHelper.cs" />
+    <Compile Include="Common\Db.cs" />
+    <Compile Include="Common\DbUrlParser.cs" />
+    <Compile Include="Common\SqlExport.cs" />
+    <Compile Include="Common\SqlImport.cs" />
+    <Compile Include="Common\GConst.cs" />
+    <Compile Include="Common\StartupTrace.cs" />
+    <Compile Include="Common\HighlightingProvider.cs" />
+    <Compile Include="Common\IconHelp.cs" />
+    <Compile Include="Common\IdCardGenerator.cs" />
+    <Compile Include="Common\RegHelp.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Common\Msg.cs" />
+    <Compile Include="Common\Oops.cs" />
+    <Compile Include="Common\RMBHelper.cs" />
+    <Compile Include="Common\SafeClipboard.cs" />
+    <Compile Include="Common\SqlCompletionData.cs" />
+    <Compile Include="Common\CompletionController.cs" />
+    <Compile Include="Common\MongoCompletionProvider.cs" />
+    <Compile Include="Common\StaticVar.cs" />
+    <Compile Include="Common\StrHelp.cs" />
+    <Compile Include="Common\TextEditContextMenu.cs" />
+    <Compile Include="Common\Tkeu.cs" />
+    <Compile Include="Common\TreeViewItemHelper.cs" />
+    <Compile Include="Common\TruncateLongLines.cs" />
+    <Compile Include="Common\TsqlFormat.cs" />
+    <Compile Include="Common\AvalonEditBindings.cs" />
+    <Compile Include="Common\TSqlFormatter\BaseFormatterState.cs" />
+    <Compile Include="Common\TSqlFormatter\Formatters\HtmlPageWrapper.cs" />
+    <Compile Include="Common\TSqlFormatter\Formatters\TSqlIdentityFormatter.cs" />
+    <Compile Include="Common\TSqlFormatter\Formatters\TSqlObfuscatingFormatter.cs" />
+    <Compile Include="Common\TSqlFormatter\Formatters\TSqlStandardFormatter.cs" />
+    <Compile Include="Common\TSqlFormatter\Formatters\TSqlStandardFormatterOptions.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\IParseTree.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\ISqlTokenFormatter.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\ISqlTokenizer.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\ISqlTokenParser.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\ISqlTreeFormatter.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\IToken.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\ITokenList.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\MessagingConstants.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\SqlHtmlConstants.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\SqlTokenType.cs" />
+    <Compile Include="Common\TSqlFormatter\Interfaces\SqlXmlConstants.cs" />
+    <Compile Include="Common\TSqlFormatter\ObfuscatingKeywordMapping.cs" />
+    <Compile Include="Common\TSqlFormatter\Parsers\TSqlStandardParser.cs" />
+    <Compile Include="Common\TSqlFormatter\ParseTree.cs" />
+    <Compile Include="Common\TSqlFormatter\SqlFormattingManager.cs" />
+    <Compile Include="Common\TSqlFormatter\StandardKeywordRemapping.cs" />
+    <Compile Include="Common\TSqlFormatter\Token.cs" />
+    <Compile Include="Common\TSqlFormatter\Tokenizers\TSqlStandardTokenizer.cs" />
+    <Compile Include="Common\TSqlFormatter\TokenList.cs" />
+    <Compile Include="Common\TSqlFormatter\Utils.cs" />
+    <Compile Include="Common\UIHelp.cs" />
+    <Compile Include="Converters\TableIconConvert.cs" />
+    <Compile Include="Converters\IconConvert.cs" />
+    <Compile Include="Converters\DateConvert.cs" />
+    <Compile Include="Converters\DateStrConvert.cs" />
+    <Compile Include="View\DataTableEditDataGrid.cs" />
+    <Compile Include="Entity\SqlLog.cs" />
+    <Compile Include="Entity\NoDbData.cs" />
+    <Compile Include="View\Loading.xaml.cs">
+      <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TabModel.cs" />
+    <Compile Include="View\WelcomeView.xaml.cs">
+      <DependentUpon>WelcomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TabNoDbView.xaml.cs">
+      <DependentUpon>TabNoDbView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DataTableEditDataGridView.xaml.cs">
+      <DependentUpon>DataTableEditDataGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DataTableEditDataGridViewModel.cs" />
+    <Compile Include="View\KuaiSuChaXunModel.cs" />
+    <Compile Include="View\TabViewModel.cs" />
+    <Compile Include="View\IDataGridHost.cs" />
+    <Compile Include="View\TableDataViewModel.cs" />
+    <Compile Include="View\TableDataView.xaml.cs">
+      <DependentUpon>TableDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RedisConsoleViewModel.cs" />
+    <Compile Include="View\RedisConsoleView.xaml.cs">
+      <DependentUpon>RedisConsoleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MongoDataGridEditor.cs" />
+    <Compile Include="View\MongoFilterBuilder.cs" />
+    <Compile Include="View\LieColumnHelper.cs" />
+    <Compile Include="View\MongoTableDataViewModel.cs" />
+    <Compile Include="View\MongoTableDataView.xaml.cs">
+      <DependentUpon>MongoTableDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TabMongoQueryView.xaml.cs">
+      <DependentUpon>TabMongoQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\ZiDuan.cs" />
+    <Compile Include="Entity\Biao.cs" />
+    <Compile Include="Entity\LianJie.cs" />
+    <Compile Include="Entity\DbNode.cs" />
+    <Compile Include="Entity\DaoChuBiao.cs" />
+    <Compile Include="Entity\SqlImportLogItem.cs" />
+    <Compile Include="MainWindowModel.cs" />
+    <Compile Include="View\TabView.xaml.cs">
+      <DependentUpon>TabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AiChatView.xaml.cs">
+      <DependentUpon>AiChatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AiChatTabView.xaml.cs">
+      <DependentUpon>AiChatTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\BiaoGuolv.xaml.cs">
+      <DependentUpon>BiaoGuolv.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\ShuRu.xaml.cs">
+      <DependentUpon>ShuRu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\MsgBox.xaml.cs">
+      <DependentUpon>MsgBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\ImageView.xaml.cs">
+      <DependentUpon>ImageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\XinJianShuJuKu.xaml.cs">
+      <DependentUpon>XinJianShuJuKu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\BiaoBianJi.xaml.cs">
+      <DependentUpon>BiaoBianJi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\BiaoBianJiModel.cs" />
+    <Compile Include="Entity\SqlItem.cs" />
+    <Compile Include="Entity\FilterConfig.cs" />
+    <Compile Include="Entity\AiModel.cs" />
+    <Compile Include="Window\DaoruDaochu.xaml.cs">
+      <DependentUpon>DaoruDaochu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\DaoChuSql.xaml.cs">
+      <DependentUpon>DaoChuSql.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\DaoRuSql.xaml.cs">
+      <DependentUpon>DaoRuSql.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\GuanYu.xaml.cs">
+      <DependentUpon>GuanYu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\SqlLogWindowModel.cs" />
+    <Compile Include="Window\SqlLogWindow.xaml.cs">
+      <DependentUpon>SqlLogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\BiaoJieGouNoDbModel.cs" />
+    <Compile Include="Window\BiaoJieGouNoDb.xaml.cs">
+      <DependentUpon>BiaoJieGouNoDb.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\EditableListItem.cs" />
+    <Compile Include="Window\BiaoJieGouModel.cs" />
+    <Compile Include="Window\Tools\ToolBox.xaml.cs">
+      <DependentUpon>ToolBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcBase64.xaml.cs">
+      <DependentUpon>UcBase64.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\MainTools.xaml.cs">
+      <DependentUpon>MainTools.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\ToolMenu.xaml.cs">
+      <DependentUpon>ToolMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\ToolCard.xaml.cs">
+      <DependentUpon>ToolCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcBase64ToImg.xaml.cs">
+      <DependentUpon>UcBase64ToImg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcDateDiff.xaml.cs">
+      <DependentUpon>UcDateDiff.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcHex.xaml.cs">
+      <DependentUpon>UcHex.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcIcoToConvert.xaml.cs">
+      <DependentUpon>UcIcoToConvert.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcJsonFormatter.xaml.cs">
+      <DependentUpon>UcJsonFormatter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcJWT.xaml.cs">
+      <DependentUpon>UcJWT.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcLinuxCommand.xaml.cs">
+      <DependentUpon>UcLinuxCommand.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcMD5.xaml.cs">
+      <DependentUpon>UcMD5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcMimeType.xaml.cs">
+      <DependentUpon>UcMimeType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcSFZGenModel.cs" />
+    <Compile Include="Window\Tools\UcSFZGen.xaml.cs">
+      <DependentUpon>UcSFZGen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcPasswordGen.xaml.cs">
+      <DependentUpon>UcPasswordGen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcPasswordGenModel.cs" />
+    <Compile Include="Window\Tools\UcRgbToHex.xaml.cs">
+      <DependentUpon>UcRgbToHex.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcRMB.xaml.cs">
+      <DependentUpon>UcRMB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcSqlFormatter.xaml.cs">
+      <DependentUpon>UcSqlFormatter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcStoryOfWords.xaml.cs">
+      <DependentUpon>UcStoryOfWords.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcTextInsert.xaml.cs">
+      <DependentUpon>UcTextInsert.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcUnicode.xaml.cs">
+      <DependentUpon>UcUnicode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcUnixToConvert.xaml.cs">
+      <DependentUpon>UcUnixToConvert.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcUrlEncode.xaml.cs">
+      <DependentUpon>UcUrlEncode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcUUIDGen.xaml.cs">
+      <DependentUpon>UcUUIDGen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\Tools\UcUUIDGenModel.cs" />
+    <Compile Include="Window\Tools\UcWordCount.xaml.cs">
+      <DependentUpon>UcWordCount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\SqlWindow.xaml.cs">
+      <DependentUpon>SqlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\XinJianNoDb.xaml.cs">
+      <DependentUpon>XinJianNoDb.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\XinJian.xaml.cs">
+      <DependentUpon>XinJian.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\XinJianByUrl.xaml.cs">
+      <DependentUpon>XinJianByUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WenBen.xaml.cs">
+      <DependentUpon>WenBen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\BiaoJieGou.xaml.cs">
+      <DependentUpon>BiaoJieGou.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\XinJianLocal.xaml.cs">
+      <DependentUpon>XinJianLocal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\SheZhi.xaml.cs">
+      <DependentUpon>SheZhi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\AiModelEdit.xaml.cs">
+      <DependentUpon>AiModelEdit.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\Themes\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Loading.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\WelcomeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TabNoDbView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\DataTableEditDataGridView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AiChatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AiChatTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TableDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RedisConsoleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MongoTableDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TabMongoQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\BiaoGuolv.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\ShuRu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\XinJianByUrl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\MsgBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\ImageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\XinJianShuJuKu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\BiaoBianJi.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\DaoruDaochu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\DaoChuSql.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\DaoRuSql.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\GuanYu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\SqlLogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\BiaoJieGouNoDb.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\ToolBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcBase64.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\MainTools.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\ToolMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\ToolCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcBase64ToImg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Window\Tools\UcDateDiff.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Window\Tools\UcHex.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Window\Tools\UcIcoToConvert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcJsonFormatter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcJWT.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcLinuxCommand.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcMD5.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcMimeType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcSFZGen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcPasswordGen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcRgbToHex.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcRMB.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcSqlFormatter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcStoryOfWords.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcTextInsert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcUnicode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcUnixToConvert.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcUrlEncode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcUUIDGen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\Tools\UcWordCount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\SqlWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\XinJianNoDb.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\XinJian.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WenBen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\BiaoJieGou.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\XinJianLocal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\SheZhi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\AiModelEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Resource Include="Resources\xshd\Java-Mode.xshd" />
+    <Resource Include="Resources\xshd\CSharp-Dark.xshd" />
+    <Resource Include="Resources\xshd\SQL-Dark.xshd" />
+    <Resource Include="Resources\xshd\Json.xshd" />
+    <None Include="app.config" />
+    <None Include="FodyWeavers.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit">
+      <Version>6.1.3.50</Version>
+    </PackageReference>
+    <PackageReference Include="Fody">
+      <Version>6.6.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="HandyControl">
+      <Version>3.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <PrivateAssets>all</PrivateAssets>
+      <Version>3.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="MongoDB.Driver">
+      <Version>2.12.0</Version>
+    </PackageReference>
+    <PackageReference Include="ServiceStack.Redis">
+      <Version>4.0.62</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetFrameWork.Database\NetFrameWork.Database.csproj">
+      <Project>{08535c08-e1d5-43c9-b5cc-4f7f5958e00f}</Project>
+      <Name>NetFrameWork.Database</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\addconnect.png" />
+    <Resource Include="Resources\configuration.png" />
+    <Resource Include="Resources\delete.png" />
+    <Resource Include="Resources\edit.png" />
+    <Resource Include="Resources\export.png" />
+    <Resource Include="Resources\import.png" />
+    <Resource Include="Resources\reconnect.png" />
+    <Resource Include="Resources\search.png" />
+    <Resource Include="Resources\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\row_add.png" />
+    <Resource Include="Resources\row_cancel.png" />
+    <Resource Include="Resources\row_copy.png" />
+    <Resource Include="Resources\row_delete.png" />
+    <Resource Include="Resources\row_edit.png" />
+    <Resource Include="Resources\row_refresh.png" />
+    <Resource Include="Resources\row_save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\save_as.png" />
+    <Resource Include="Resources\sql_plan.png" />
+    <Resource Include="Resources\sql_run.png" />
+    <Resource Include="Resources\view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sql_script_create.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sql_text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\col.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tools\aes%402x.png" />
+    <Resource Include="Resources\tools\base64%402x.png" />
+    <Resource Include="Resources\tools\base64ToImg%402x.png" />
+    <Resource Include="Resources\tools\dateDiff%402x.png" />
+    <Resource Include="Resources\tools\hex-encoding%402x.png" />
+    <Resource Include="Resources\tools\ico%402x.png" />
+    <Resource Include="Resources\tools\json%402x.png" />
+    <Resource Include="Resources\tools\jwt%402x.png" />
+    <Resource Include="Resources\tools\linux-command%402x.png" />
+    <Resource Include="Resources\tools\md5%402x.png" />
+    <Resource Include="Resources\tools\mime-type%402x.png" />
+    <Resource Include="Resources\tools\password-generator%402x.png" />
+    <Resource Include="Resources\tools\rgbToHex%402x.png" />
+    <Resource Include="Resources\tools\rmb%402x.png" />
+    <Resource Include="Resources\tools\sql-formatter%402x.png" />
+    <Resource Include="Resources\tools\storyOfWords%402x.png" />
+    <Resource Include="Resources\tools\text-insert%402x.png" />
+    <Resource Include="Resources\tools\timestamp-convert%402x.png" />
+    <Resource Include="Resources\tools\unicode%402x.png" />
+    <Resource Include="Resources\tools\urlEncode%402x.png" />
+    <Resource Include="Resources\tools\uuid%402x.png" />
+    <Resource Include="Resources\tools\word-count%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\linux.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\connect\dameng.png" />
+    <Resource Include="Resources\connect\kingbase.png" />
+    <Resource Include="Resources\connect\mysql.png" />
+    <Resource Include="Resources\connect\pgsql.png" />
+    <Resource Include="Resources\connect\redis.png" />
+    <Resource Include="Resources\connect\mongodb.png" />
+    <Resource Include="Resources\connect\sqlite.png" />
+    <Resource Include="Resources\connect\sqlserver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\connect\oracle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ai.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wzwy.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\database.png" />
+    <Resource Include="Resources\schema.png" />
+    <Resource Include="Resources\connect\gaussdb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="main.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ssq.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tools\sfz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\connect\link.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="D:\Wdxx\Source\WDB\WDB.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>:: 如果不是 Debug 模式，删除 pdb 和 xml（只保留干净 dll）
+if NOT "$(ConfigurationName)" == "Debug" (
+:: 创建 WDB 文件夹
+if not exist "$(TargetDir)WDB" mkdir "$(TargetDir)WDB"
+:: 创建 dll 文件夹
+if not exist "$(TargetDir)WDB\dll" mkdir "$(TargetDir)WDB\dll"
+:: 移动所有 dll 到 WDB\dll
+move /Y "$(TargetDir)*.dll" "$(TargetDir)WDB\dll"
+:: 删除所有 pdb
+del /Q "$(TargetDir)*.pdb"
+:: 删除所有 xml
+del /Q "$(TargetDir)*.xml"
+)</PostBuildEvent>
+  </PropertyGroup>
+</Project>

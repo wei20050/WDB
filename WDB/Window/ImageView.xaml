@@ -1,0 +1,45 @@
+<Window
+    x:Class="WDB.Window.ImageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="查看图片"
+    Background="#111111"
+    KeyDown="Window_KeyDown"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterOwner"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <Grid>
+        <ScrollViewer
+            x:Name="Sv"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto">
+            <!--  按原图尺寸显示,再按窗口大小缩放到刚好放得下;滚轮可继续放大  -->
+            <Image
+                x:Name="Img"
+                Cursor="Hand"
+                MouseLeftButtonDown="Img_MouseLeftButtonDown"
+                MouseWheel="Img_MouseWheel"
+                RenderOptions.BitmapScalingMode="HighQuality"
+                Stretch="None">
+                <Image.LayoutTransform>
+                    <ScaleTransform x:Name="St" ScaleX="1" ScaleY="1" />
+                </Image.LayoutTransform>
+            </Image>
+        </ScrollViewer>
+        <Border
+            Margin="0,0,0,18"
+            Padding="12,6"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Background="#88000000"
+            CornerRadius="12">
+            <TextBlock
+                FontSize="12"
+                Foreground="#DDDDDD"
+                Text="滚轮缩放,点击或 Esc 关闭" />
+        </Border>
+    </Grid>
+</Window>

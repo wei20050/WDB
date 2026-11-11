@@ -1,0 +1,131 @@
+﻿<UserControl
+    x:Class="WDB.Window.Tools.ToolMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tools="clr-namespace:WDB.Window.Tools"
+    d:DesignHeight="550"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <hc:ScrollViewer Margin="10,15,10,15">
+            <hc:WaterfallPanel
+                VerticalAlignment="Top"
+                hc:PanelElement.FluidMoveBehavior="{StaticResource BehaviorX200}"
+                Groups="5">
+                <tools:ToolCard
+                    Title="SQL格式化"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/sql-formatter@2x.png"
+                    Tag="sqlformatter" />
+                <tools:ToolCard
+                    Title="JSON格式化"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/json@2x.png"
+                    Tag="jsonformatter" />
+                <tools:ToolCard
+                    Title="MD5文本加密"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/md5@2x.png"
+                    Tag="md5" />
+                <tools:ToolCard
+                    Title="密码生成器"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/password-generator@2x.png"
+                    Tag="passwordGen" />
+                <tools:ToolCard
+                    Title="UUID生成器"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/uuid@2x.png"
+                    Tag="uuidGen" />
+                <tools:ToolCard
+                    Title="身份证生成"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/sfz.png"
+                    Tag="sfz" />
+                <tools:ToolCard
+                    Title="Unix时间戳转换"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/timestamp-convert@2x.png"
+                    Tag="unixConvert" />
+                <tools:ToolCard
+                    Title="文本两端插入字符"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/text-insert@2x.png"
+                    Tag="textInsert" />
+                <tools:ToolCard
+                    Title="Base64编码/解码"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/base64@2x.png"
+                    Tag="base64" />
+                <tools:ToolCard
+                    Title="字数统计"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/word-count@2x.png"
+                    Tag="wordCount" />
+                <tools:ToolCard
+                    Title="JWT解码器"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/jwt@2x.png"
+                    Tag="jwt" />
+                <tools:ToolCard
+                    Title="时间差计算"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/dateDiff@2x.png"
+                    Tag="dateDiff" />
+                <tools:ToolCard
+                    Title="图片转Base64"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/base64ToImg@2x.png"
+                    Tag="base64ToImg" />
+                <tools:ToolCard
+                    Title="RGB颜色转换"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/rgbToHex@2x.png"
+                    Tag="rgbToHex" />
+                <tools:ToolCard
+                    Title="文字物语"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/storyOfWords@2x.png"
+                    Tag="storyOfWords" />
+                <tools:ToolCard
+                    Title="Url编码/解码"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/urlEncode@2x.png"
+                    Tag="urlEncode" />
+                <tools:ToolCard
+                    Title="MimeType对照表"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/mime-type@2x.png"
+                    Tag="mimeType" />
+                <tools:ToolCard
+                    Title="Unicode中文互转"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/unicode@2x.png"
+                    Tag="unicode" />
+                <tools:ToolCard
+                    Title="Hex编码/解码"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/hex-encoding@2x.png"
+                    Tag="hexEncode" />
+                <tools:ToolCard
+                    Title="Linux命令大全"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/linux-command@2x.png"
+                    Tag="linuxCommand" />
+                <tools:ToolCard
+                    Title="人民币大写转换"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/rmb@2x.png"
+                    Tag="rmb" />
+                <tools:ToolCard
+                    Title="Ico图标生成"
+                    ClickCard="UcToolCard_ClickCard"
+                    Icon="pack://application:,,,/WDB;component/Resources/tools/ico@2x.png"
+                    Tag="ico" />
+            </hc:WaterfallPanel>
+        </hc:ScrollViewer>
+    </Grid>
+</UserControl>

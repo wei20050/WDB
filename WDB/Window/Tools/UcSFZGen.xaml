@@ -1,0 +1,424 @@
+﻿<UserControl
+    x:Class="WDB.Window.Tools.UcSFZGen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="550"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Border
+        Margin="5"
+        Background="White"
+        CornerRadius="8">
+        <Grid Margin="18">
+            <Grid
+                Height="40"
+                Margin="0,-5,0,0"
+                VerticalAlignment="Top"
+                Background="#f9f9f9">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        Margin="15,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="#5c6b77">
+                        工具箱
+                    </TextBlock>
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="#5c6b77">
+                        /
+                    </TextBlock>
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="#5c6b77">
+                        身份证生成器
+                    </TextBlock>
+                </StackPanel>
+
+                <TextBlock
+                    Margin="10,10,10,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource TextBlockSubTitleBold}"
+                    Text="身份证生成器" />
+                <Button
+                    x:Name="BtnReturn"
+                    Width="60"
+                    Height="28"
+                    Margin="0,0,8,0"
+                    HorizontalAlignment="Right"
+                    BorderThickness="0.4"
+                    Click="BtnReturn_Click"
+                    Content="返回"
+                    Cursor="Hand" />
+            </Grid>
+            <Grid Margin="0,45,0,0">
+                <Border
+                    Height="180"
+                    VerticalAlignment="Top"
+                    Background="#f9f9f9"
+                    CornerRadius="8">
+                    <Grid Margin="20,20,20,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <Label
+                                Margin="0,0,17,0"
+                                Padding="0,3,0,0"
+                                Content="　出生地"
+                                Style="{StaticResource BaseStyle}" />
+                            <ComboBox
+                                Name="cbSheng"
+                                Width="150"
+                                Height="30"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Top"
+                                SelectionChanged="cbSheng_SelectionChanged" />
+                            <ComboBox
+                                Name="cbShi"
+                                Width="150"
+                                Height="30"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Top"
+                                SelectionChanged="cbShi_SelectionChanged" />
+                            <ComboBox
+                                Name="cbQu"
+                                Width="150"
+                                Height="30"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Top" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <Label
+                                Margin="0,0,17,0"
+                                Padding="0,3,0,0"
+                                Content="出生日期"
+                                Style="{StaticResource BaseStyle}" />
+                            <ComboBox
+                                Name="cbN"
+                                Width="150"
+                                Height="30"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Top">
+                                <ComboBoxItem Content="---- 年 ----" />
+                                <ComboBoxItem>2026</ComboBoxItem>
+                                <ComboBoxItem>2025</ComboBoxItem>
+                                <ComboBoxItem>2024</ComboBoxItem>
+                                <ComboBoxItem>2023</ComboBoxItem>
+                                <ComboBoxItem>2022</ComboBoxItem>
+                                <ComboBoxItem>2021</ComboBoxItem>
+                                <ComboBoxItem>2020</ComboBoxItem>
+                                <ComboBoxItem>2019</ComboBoxItem>
+                                <ComboBoxItem>2018</ComboBoxItem>
+                                <ComboBoxItem>2017</ComboBoxItem>
+                                <ComboBoxItem>2016</ComboBoxItem>
+                                <ComboBoxItem>2015</ComboBoxItem>
+                                <ComboBoxItem>2014</ComboBoxItem>
+                                <ComboBoxItem>2013</ComboBoxItem>
+                                <ComboBoxItem>2012</ComboBoxItem>
+                                <ComboBoxItem>2011</ComboBoxItem>
+                                <ComboBoxItem>2010</ComboBoxItem>
+                                <ComboBoxItem>2009</ComboBoxItem>
+                                <ComboBoxItem>2008</ComboBoxItem>
+                                <ComboBoxItem>2007</ComboBoxItem>
+                                <ComboBoxItem>2006</ComboBoxItem>
+                                <ComboBoxItem>2005</ComboBoxItem>
+                                <ComboBoxItem>2004</ComboBoxItem>
+                                <ComboBoxItem>2003</ComboBoxItem>
+                                <ComboBoxItem>2002</ComboBoxItem>
+                                <ComboBoxItem>2001</ComboBoxItem>
+                                <ComboBoxItem>2000</ComboBoxItem>
+                                <ComboBoxItem>1999</ComboBoxItem>
+                                <ComboBoxItem>1998</ComboBoxItem>
+                                <ComboBoxItem>1997</ComboBoxItem>
+                                <ComboBoxItem>1996</ComboBoxItem>
+                                <ComboBoxItem>1995</ComboBoxItem>
+                                <ComboBoxItem>1994</ComboBoxItem>
+                                <ComboBoxItem>1993</ComboBoxItem>
+                                <ComboBoxItem>1992</ComboBoxItem>
+                                <ComboBoxItem>1991</ComboBoxItem>
+                                <ComboBoxItem>1990</ComboBoxItem>
+                                <ComboBoxItem>1989</ComboBoxItem>
+                                <ComboBoxItem>1988</ComboBoxItem>
+                                <ComboBoxItem>1987</ComboBoxItem>
+                                <ComboBoxItem>1986</ComboBoxItem>
+                                <ComboBoxItem>1985</ComboBoxItem>
+                                <ComboBoxItem>1984</ComboBoxItem>
+                                <ComboBoxItem>1983</ComboBoxItem>
+                                <ComboBoxItem>1982</ComboBoxItem>
+                                <ComboBoxItem>1981</ComboBoxItem>
+                                <ComboBoxItem>1980</ComboBoxItem>
+                                <ComboBoxItem>1979</ComboBoxItem>
+                                <ComboBoxItem>1978</ComboBoxItem>
+                                <ComboBoxItem>1977</ComboBoxItem>
+                                <ComboBoxItem>1976</ComboBoxItem>
+                                <ComboBoxItem>1975</ComboBoxItem>
+                                <ComboBoxItem>1974</ComboBoxItem>
+                                <ComboBoxItem>1973</ComboBoxItem>
+                                <ComboBoxItem>1972</ComboBoxItem>
+                                <ComboBoxItem>1971</ComboBoxItem>
+                                <ComboBoxItem>1970</ComboBoxItem>
+                                <ComboBoxItem>1969</ComboBoxItem>
+                                <ComboBoxItem>1968</ComboBoxItem>
+                                <ComboBoxItem>1967</ComboBoxItem>
+                                <ComboBoxItem>1966</ComboBoxItem>
+                                <ComboBoxItem>1965</ComboBoxItem>
+                                <ComboBoxItem>1964</ComboBoxItem>
+                                <ComboBoxItem>1963</ComboBoxItem>
+                                <ComboBoxItem>1962</ComboBoxItem>
+                                <ComboBoxItem>1961</ComboBoxItem>
+                                <ComboBoxItem>1960</ComboBoxItem>
+                                <ComboBoxItem>1959</ComboBoxItem>
+                                <ComboBoxItem>1958</ComboBoxItem>
+                                <ComboBoxItem>1957</ComboBoxItem>
+                                <ComboBoxItem>1956</ComboBoxItem>
+                                <ComboBoxItem>1955</ComboBoxItem>
+                                <ComboBoxItem>1954</ComboBoxItem>
+                                <ComboBoxItem>1953</ComboBoxItem>
+                                <ComboBoxItem>1952</ComboBoxItem>
+                                <ComboBoxItem>1951</ComboBoxItem>
+                                <ComboBoxItem>1950</ComboBoxItem>
+                                <ComboBoxItem>1949</ComboBoxItem>
+                                <ComboBoxItem>1948</ComboBoxItem>
+                                <ComboBoxItem>1947</ComboBoxItem>
+                                <ComboBoxItem>1946</ComboBoxItem>
+                                <ComboBoxItem>1945</ComboBoxItem>
+                                <ComboBoxItem>1944</ComboBoxItem>
+                                <ComboBoxItem>1943</ComboBoxItem>
+                                <ComboBoxItem>1942</ComboBoxItem>
+                                <ComboBoxItem>1941</ComboBoxItem>
+                                <ComboBoxItem>1940</ComboBoxItem>
+                                <ComboBoxItem>1939</ComboBoxItem>
+                                <ComboBoxItem>1938</ComboBoxItem>
+                                <ComboBoxItem>1937</ComboBoxItem>
+                                <ComboBoxItem>1936</ComboBoxItem>
+                                <ComboBoxItem>1935</ComboBoxItem>
+                                <ComboBoxItem>1934</ComboBoxItem>
+                                <ComboBoxItem>1933</ComboBoxItem>
+                                <ComboBoxItem>1932</ComboBoxItem>
+                                <ComboBoxItem>1931</ComboBoxItem>
+                                <ComboBoxItem>1930</ComboBoxItem>
+                                <ComboBoxItem>1929</ComboBoxItem>
+                                <ComboBoxItem>1928</ComboBoxItem>
+                                <ComboBoxItem>1927</ComboBoxItem>
+                                <ComboBoxItem>1926</ComboBoxItem>
+                                <ComboBoxItem>1925</ComboBoxItem>
+                                <ComboBoxItem>1924</ComboBoxItem>
+                                <ComboBoxItem>1923</ComboBoxItem>
+                                <ComboBoxItem>1922</ComboBoxItem>
+                                <ComboBoxItem>1921</ComboBoxItem>
+                                <ComboBoxItem>1920</ComboBoxItem>
+                                <ComboBoxItem>1919</ComboBoxItem>
+                                <ComboBoxItem>1918</ComboBoxItem>
+                                <ComboBoxItem>1917</ComboBoxItem>
+                                <ComboBoxItem>1916</ComboBoxItem>
+                                <ComboBoxItem>1915</ComboBoxItem>
+                                <ComboBoxItem>1914</ComboBoxItem>
+                                <ComboBoxItem>1913</ComboBoxItem>
+                                <ComboBoxItem>1912</ComboBoxItem>
+                                <ComboBoxItem>1911</ComboBoxItem>
+                                <ComboBoxItem>1910</ComboBoxItem>
+                                <ComboBoxItem>1909</ComboBoxItem>
+                                <ComboBoxItem>1908</ComboBoxItem>
+                                <ComboBoxItem>1907</ComboBoxItem>
+                                <ComboBoxItem>1906</ComboBoxItem>
+                                <ComboBoxItem>1905</ComboBoxItem>
+                                <ComboBoxItem>1904</ComboBoxItem>
+                                <ComboBoxItem>1903</ComboBoxItem>
+                                <ComboBoxItem>1902</ComboBoxItem>
+                                <ComboBoxItem>1901</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox
+                                Name="cbY"
+                                Width="150"
+                                Height="30"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Top">
+                                <ComboBoxItem Content="---- 月 ----" />
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                                <ComboBoxItem>6</ComboBoxItem>
+                                <ComboBoxItem>7</ComboBoxItem>
+                                <ComboBoxItem>8</ComboBoxItem>
+                                <ComboBoxItem>9</ComboBoxItem>
+                                <ComboBoxItem>10</ComboBoxItem>
+                                <ComboBoxItem>11</ComboBoxItem>
+                                <ComboBoxItem>12</ComboBoxItem>
+                            </ComboBox>
+                            <ComboBox
+                                Name="cbR"
+                                Width="150"
+                                Height="30"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Top">
+                                <ComboBoxItem Content="---- 日 ----" />
+                                <ComboBoxItem Content="1" />
+                                <ComboBoxItem Content="2" />
+                                <ComboBoxItem Content="3" />
+                                <ComboBoxItem Content="4" />
+                                <ComboBoxItem Content="5" />
+                                <ComboBoxItem Content="6" />
+                                <ComboBoxItem Content="7" />
+                                <ComboBoxItem Content="8" />
+                                <ComboBoxItem Content="9" />
+                                <ComboBoxItem Content="10" />
+                                <ComboBoxItem Content="11" />
+                                <ComboBoxItem Content="12" />
+                                <ComboBoxItem Content="13" />
+                                <ComboBoxItem Content="14" />
+                                <ComboBoxItem Content="15" />
+                                <ComboBoxItem Content="16" />
+                                <ComboBoxItem Content="17" />
+                                <ComboBoxItem Content="18" />
+                                <ComboBoxItem Content="19" />
+                                <ComboBoxItem Content="20" />
+                                <ComboBoxItem Content="21" />
+                                <ComboBoxItem Content="22" />
+                                <ComboBoxItem Content="23" />
+                                <ComboBoxItem Content="24" />
+                                <ComboBoxItem Content="25" />
+                                <ComboBoxItem Content="26" />
+                                <ComboBoxItem Content="27" />
+                                <ComboBoxItem Content="28" />
+                                <ComboBoxItem Content="29" />
+                                <ComboBoxItem Content="30" />
+                                <ComboBoxItem Content="31" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <Label
+                                Margin="0,0,17,0"
+                                Padding="0,3,0,0"
+                                Content="　　性别"
+                                Style="{StaticResource BaseStyle}" />
+                            <ComboBox
+                                Name="cbXB"
+                                Width="150"
+                                Height="30"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Top">
+                                <ComboBoxItem Content="---- 性别 ----" />
+                                <ComboBoxItem Content="男" />
+                                <ComboBoxItem Content="女" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                            <hc:NumericUpDown
+                                Name="TextSfzNums"
+                                Width="200"
+                                VerticalAlignment="Top"
+                                hc:InfoElement.Placeholder="请输入生成个数"
+                                hc:InfoElement.Title="生成个数"
+                                hc:InfoElement.TitlePlacement="Left"
+                                hc:InfoElement.TitleWidth="65"
+                                Maximum="100"
+                                Minimum="1"
+                                Style="{StaticResource NumericUpDownExtend}" />
+                            <Button
+                                x:Name="BtnGen"
+                                Width="150"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Top"
+                                hc:IconElement.Geometry="{StaticResource StartGeometry}"
+                                Click="BtnGen_Click"
+                                Content="生成随机身份证"
+                                Cursor="Hand"
+                                Style="{StaticResource ButtonSuccess}" />
+                            <Button
+                                x:Name="BtnCopy"
+                                Width="150"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Top"
+                                hc:IconElement.Geometry="{StaticResource WindowRestoreGeometry}"
+                                Click="BtnCopy_Click"
+                                Content="复制所有身份证"
+                                Cursor="Hand"
+                                Style="{StaticResource ButtonWarning}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border
+                    Margin="0,190,0,0"
+                    Background="#f9f9f9"
+                    CornerRadius="8">
+                    <Grid>
+                        <TextBlock
+                            Margin="10,10,10,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Style="{StaticResource TextBlockSubTitleBold}"
+                            Text="生成结果" />
+                        <DataGrid
+                            x:Name="TableGrid"
+                            Margin="5,40,5,5"
+                            hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
+                            hc:DataGridAttach.ShowRowNumber="True"
+                            AutoGenerateColumns="False"
+                            Background="#f9f9f9"
+                            Cursor="Arrow"
+                            HeadersVisibility="All"
+                            ItemsSource="{Binding SFZList}"
+                            RowHeaderWidth="60"
+                            SelectionUnit="Cell"
+                            VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="2*"
+                                    Binding="{Binding}"
+                                    Header="身份证号"
+                                    IsReadOnly="True" />
+                                <DataGridTemplateColumn Width="100">
+                                    <DataGridTemplateColumn.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                        <Grid>
+                                                            <ContentPresenter HorizontalAlignment="Center" />
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DataGridTemplateColumn.CellStyle>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock>操作</TextBlock>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                x:Name="BtnCopyRow"
+                                                Width="80"
+                                                Height="25"
+                                                Margin="5"
+                                                Padding="0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Bottom"
+                                                hc:IconElement.Geometry="{StaticResource WindowRestoreGeometry}"
+                                                Click="BtnCopyRow_OnClick"
+                                                Content="复制"
+                                                Cursor="Hand"
+                                                Style="{StaticResource ButtonWarning}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

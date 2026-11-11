@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{08535C08-E1D5-43C9-B5CC-4F7F5958E00F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NetFrameWork.Database</RootNamespace>
+    <AssemblyName>NetFrameWork.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <!-- MSB3277：net461 下 VS 的 Microsoft.NET.Build.Extensions 会注入 System.ValueTuple 4.0.2.0 门面，
+         而 DbDll\gauss 下的 OpenGauss.NET / System.Text.Json 依赖 System.ValueTuple 4.0.3.0。
+         两份 API 完全一致，属已知噪音，这里降级为消息不再报警告。 -->
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>bin\Debug\NetFrameWork.Database.xml</DocumentationFile>
+    <LangVersion>9.0</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <LangVersion>9.0</LangVersion>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\NetFrameWork.Database.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DmProvider">
+      <HintPath>DbDll\DmProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Kdbndp, Version=4.0.7.1222, Culture=neutral, PublicKeyToken=0670ecbb9498892e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\pg_kdb_old\Kdbndp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+      <HintPath>DbDll\gauss\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode">
+      <HintPath>DbDll\gauss\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySqlConnector">
+      <HintPath>DbDll\mysql\MySqlConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=4.0.17.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\pg_kdb_old\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenGauss.NET">
+      <HintPath>DbDll\gauss\OpenGauss.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess">
+      <HintPath>DbDll\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\gauss\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>DbDll\gauss\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>DbDll\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\gauss\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\gauss\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\gauss\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\gauss\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web">
+      <HintPath>DbDll\gauss\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json">
+      <HintPath>DbDll\gauss\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels">
+      <HintPath>DbDll\gauss\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DbDll\gauss\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CreateEntity\DalFactory.cs" />
+    <Compile Include="CreateEntity\IDal.cs" />
+    <Compile Include="CreateEntity\GaussDBDal.cs" />
+    <Compile Include="CreateEntity\MSSQLDal.cs" />
+    <Compile Include="CreateEntity\KdbDal.cs" />
+    <Compile Include="CreateEntity\PgSqlDal.cs" />
+    <Compile Include="CreateEntity\MySqlDal.cs" />
+    <Compile Include="CreateEntity\DmDal.cs" />
+    <Compile Include="CreateEntity\OracleDal.cs" />
+    <Compile Include="CreateEntity\SQLiteDal.cs" />
+    <Compile Include="ORM.cs" />
+    <Compile Include="SqlFunction\GaussDBFunction.cs" />
+    <Compile Include="SqlFunction\PgsqlFunction.cs" />
+    <Compile Include="SqlFunction\KdbFunction.cs" />
+    <Compile Include="SqlFunction\DmFunction.cs" />
+    <Compile Include="WhereExpression\ConstantExtractor.cs" />
+    <Compile Include="WhereExpression\DelegateGenerator.cs" />
+    <Compile Include="WhereExpression\ExpressionComparer.cs" />
+    <Compile Include="WhereExpression\ExpressionHasher.cs" />
+    <Compile Include="WhereExpression\ExpressionVisitor.cs" />
+    <Compile Include="WhereExpression\FastEvaluator.cs" />
+    <Compile Include="WhereExpression\HashedListCache.cs" />
+    <Compile Include="WhereExpression\IExpressionCache.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql.cs" />
+    <Compile Include="SqlFunction\SqlFunBase.cs" />
+    <Compile Include="SqlFunction\MsSqlFunction.cs" />
+    <Compile Include="SqlFunction\OracleFunction.cs" />
+    <Compile Include="SqlFunction\SqLiteFunction.cs" />
+    <Compile Include="WhereExpression\Where.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
